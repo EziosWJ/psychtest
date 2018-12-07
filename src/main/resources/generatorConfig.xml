@@ -5,7 +5,8 @@
 <generatorConfiguration>
 
     <!-- mysql-jdbc驱动地址 -->
-    <classPathEntry location="C:/Users/tianhang/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
+    <classPathEntry location="G:/java_lib/mvn-center-local/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>
+    <!--<classPathEntry location="G:/java_lib/mvn-center-local/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"/>-->
 
     <context id="context" targetRuntime="MyBatis3">
         <commentGenerator>
@@ -35,13 +36,15 @@
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
         <!-- dao配置 -->
-        <javaClientGenerator targetPackage="com.xw.zpp.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.xw.app.dao" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
         <!-- 数据表配置 -->
-        <table tableName="user" domainObjectName="User" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+        <table tableName="user" domainObjectName="UserModel" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table tableName="book" domainObjectName="BookModel" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>
