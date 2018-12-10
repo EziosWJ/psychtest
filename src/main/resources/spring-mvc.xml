@@ -17,7 +17,13 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 1、配置映射器与适配器 -->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+    </mvc:annotation-driven>
+
+    <!-- 因为导入了JackSon-xml 所以必须使用以下配置讲json改为默认response配置-->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="defaultContentType" value="application/json"/>
+    </bean>
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
     <context:component-scan base-package="com.xw.*" />
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
@@ -31,14 +37,23 @@
     </bean>
 
     <bean id="jsonConverter"
-          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+                <value>text/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+
     <bean
             class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <ref bean="stringConverter"/>
                 <ref bean="jsonConverter" />
+                <ref bean="stringConverter"/>
             </list>
         </property>
     </bean>
