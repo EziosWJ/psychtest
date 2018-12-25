@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xw.app.model.UserModel;
 import com.xw.app.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,8 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Resource
     private UserService userService;
 
@@ -30,6 +34,7 @@ public class UserController {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         long userId = Long.parseLong(request.getParameter("id"));
+        logger.debug("param => id = " + userId ,userId);
         UserModel user = this.userService.selectUser(userId);
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(mapper.writeValueAsString(user));
@@ -53,6 +58,7 @@ public class UserController {
 //    @RequestMapping(value = "/findUserById",produces = "application/json;charset=UTF-8")
     @RequestMapping(value = "/findUserById")
     public List<?> findUserById(Integer id){
+
         List<UserModel> list = new ArrayList<>();
         list.add(userService.findUserById(id));
         return list;

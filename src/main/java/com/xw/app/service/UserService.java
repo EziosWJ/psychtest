@@ -13,6 +13,10 @@ public class UserService {
     @Resource
     private UserDao userDao;
 
+    public UserService() {
+        System.out.println("===========userservice!");
+    }
+
     @Autowired
     private UserModelMapper userModelMapper;
 
