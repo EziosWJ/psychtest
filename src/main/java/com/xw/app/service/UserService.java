@@ -17,7 +17,7 @@ public class UserService {
         System.out.println("===========userservice!");
     }
 
-    @Autowired
+    @Resource
     private UserModelMapper userModelMapper;
 
     public UserModel selectUser(long id){
